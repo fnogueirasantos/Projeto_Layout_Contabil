@@ -5,7 +5,7 @@ import operacao
 import csv
 import datetime
 
-st.title('Formatação de Layout de Importação Contábil')
+st.title('Formatação de Layout Contábil')
 
 uploaded_file = st.file_uploader("Carregue o Arquivo:")
 if uploaded_file is not None:
