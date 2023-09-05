@@ -22,7 +22,7 @@ if uploaded_file is not None:
     opcao_coligada = st.selectbox('Selecione a Coligada',(opcoes))
     st.subheader('Definições de Cabeçalho do Arquivo')
     number = st.number_input('Código do Lote', value = 2023, key='int')
-    title = st.text_input('Título do Lançamento', 'Importação de lançamento contábil manual')
+    title = st.text_input('Título do Lançamento', 'Importacao de lancamento contabil manual')
     select_data = st.date_input("Data de Inclusão:")
     # Verifique se a data foi selecionada
     if select_data:
