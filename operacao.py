@@ -13,6 +13,8 @@ def transforma_dados_e_cria_zip(df,cabecalho):
     df['Coligada'] = df['Coligada'].astype('int')
     df['Filial'] = df['Filial'].astype('int')
     df['Código do Histórico'] = df['Código do Histórico'].astype('int')
+    df['Código do Histórico'] = df['Código do Histórico'].astype('string')
+    df['Código do Histórico'] = df['Código do Histórico'].astype(str).str.zfill(3)
     # Use o método replace para substituir os pontos por vírgulas
     df['Valor'] = df['Valor'].map('{:.2f}'.format).str.replace('.', ',')
 
@@ -53,6 +55,9 @@ def transforma_dados(df, cabecalho):
     df['Nº Documento'] = ''
     df['Conta de Contra Partida'] = ''
     df['Centro de Custo'] = df['Centro de Custo'].astype('string')
+    df['Código do Histórico'] = df['Código do Histórico'].astype('int')
+    df['Código do Histórico'] = df['Código do Histórico'].astype('string')
+    df['Código do Histórico'] = df['Código do Histórico'].astype(str).str.zfill(3)
     df = df.dropna()
     # Use o método replace para substituir os pontos por vírgulas
     df['Valor'] = df['Valor'].map('{:.2f}'.format).str.replace('.', ',')
