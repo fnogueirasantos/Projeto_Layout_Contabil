@@ -4,12 +4,8 @@ import time
 import operacao
 import csv
 import datetime
-import pandas as pd
-import os
-# Defina a variável de ambiente PYTHONUTF8 para o encoding padrão UTF-8
-os.environ["PYTHONUTF8"] = "1"
 
-st.title('Formatação de Layout de Importação Contábil')
+st.title('Formatação de Layout Contábil')
 
 uploaded_file = st.file_uploader("Carregue o Arquivo:")
 if uploaded_file is not None:

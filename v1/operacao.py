@@ -9,7 +9,6 @@ def transforma_dados(df, cabecalho):
     df = df.dropna()
     # Use o método replace para substituir os pontos por vírgulas
     df['Valor'] = df['Valor'].map('{:.2f}'.format).str.replace('.', ',')
-
     df = df[['Partida','Nº Documento','Conta de Débito','Conta de Crédito','Conta de Contra Partida','Valor','Código do Histórico','Complemento do Histórico','Filial','Centro de Custo']]
 
     dados = []
