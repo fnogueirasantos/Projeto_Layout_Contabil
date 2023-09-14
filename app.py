@@ -14,6 +14,7 @@ st.title('Layout de Importação Contábil')
 
 # Crie um expander com um rótulo
 with st.expander("IMPOSTOS"):
+    st.makdown("[Modelo Excel de Impostos](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Ffnogueirasantos%2FProjeto_Layout_Contabil%2Fmain%2FLayout_Geral.xlsx&wdOrigin=BROWSELINK)")
     uploaded_file = st.file_uploader("Carregue o Arquivo:",key="impostos")
 
 if uploaded_file is not None:
@@ -58,8 +59,9 @@ else:
 
 st.divider()
 
-# Você também pode aninhar expanders
+
 with st.expander("LAYOUT GERAL"):
+    st.makdown("[Modelo Excel de Impostos](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Ffnogueirasantos%2FProjeto_Layout_Contabil%2Fmain%2FLayout_Geral.xlsx&wdOrigin=BROWSELINK)")
     uploaded_file2 = st.file_uploader("Carregue o Arquivo:",key="geral")
 
     if uploaded_file2 is not None:
