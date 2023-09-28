@@ -3,7 +3,6 @@ import pandas as pd
 import time
 import operacao
 import csv
-import datetime
 import os
 import warnings
 warnings.filterwarnings("ignore")
@@ -55,7 +54,7 @@ with st.expander("IMPOSTOS"):
     else:
         pass
 
-st.divider()
+st.markdown("---")
 
 with st.expander("LAYOUT GERAL"):
     uploaded_file2 = st.file_uploader("Carregue o Arquivo:",key="geral")
@@ -103,7 +102,7 @@ with st.expander("LAYOUT GERAL"):
                     mime='text/csv',
                 )
 
-st.divider()
+st.markdown("---")
 
 with st.expander("RATEIOS"):
     uploaded_file3 = st.file_uploader("Carregue o Arquivo:", key="rateio")
@@ -113,7 +112,7 @@ with st.expander("RATEIOS"):
             df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
             st.write('Dados Carregados com Sucesso!!')
         except Exception as e:
-            st.error(f"Erro ao carregar os dados!!")
+            st.error(f"Erro ao carregar os dados!!{e}")
         time.sleep(1)
         select_data2 = st.date_input("Data de Emissão:")
         if select_data2:
@@ -128,7 +127,7 @@ with st.expander("RATEIOS"):
                     time.sleep(4)
                     df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento))                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, data_emissao, data_vencimento)                
             except Exception as e:
                 st.error(f"Erro ao carregar os dados: {e}")
             else:   
