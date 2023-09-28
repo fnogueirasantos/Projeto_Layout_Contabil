@@ -2,6 +2,7 @@ import csv
 import zipfile
 import os
 import pandas as pd
+from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -240,7 +241,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 li4 = '0,00'
                 li5 = '0,00'
                 li6 = '0,00'
-                li7 = f'{data_emissao}'
+                li7 = data_emissao
                 li8 = '8.01'
                 li9 = 'UN'
                 li10 = '1,00'
@@ -280,7 +281,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 arg20 = '1.02.18.001'
                 arg21 = '8.01'
                 arg22 = 'R$'
-                arg23 = f'{data_emissao}'
+                arg23 = data_emissao
                 arg24 = '1'
                 arg25 = '0'
                 arg26 = '1'
@@ -290,11 +291,11 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 arg30 = '0ITAU MTZ'
                 arg31 = '0'
                 arg32 = '651698'
-                arg33 = f'{data_vencimento}'
+                arg33 = data_vencimento
                 arg34 = cnpj
-                arg35 = f'{data_emissao}'
+                arg35 = data_emissao
                 arg36 = '153025'
-                arg37 = f'{data_emissao}'
+                arg37 = data_emissao
                 arg38 = '0'
                 arg39 = '1'
                 arg40 = '0'

@@ -6,6 +6,7 @@ import csv
 import datetime
 import os
 import warnings
+from datetime import datetime, timedelta
 warnings.filterwarnings("ignore")
 # Defina a variável de ambiente PYTHONUTF8 para o encoding padrão UTF-8
 os.environ["PYTHONUTF8"] = "1"
