@@ -161,7 +161,7 @@ def transforma_rateio(df):
     #Carrega os dados daw empresas
     df_empresas = pd.read_excel('empresa.xlsx', dtype={'CODIGO CLIENTE': str,'COLIGADA':str,'CODFILIAL':str,'CNPJ':str})
     # Carrega os dados com o codigo do cliente
-    df_codigo_cliente = pd.read_excel('cod_cliente.xlsx',dtype={'CODIGO CLIENTE': str,})
+    df_codigo_cliente = pd.read_excel('cod_cliente.xlsx',dtype={'CODIGO CLIENTE': str})
     # Mapeamento para trazer cnpj, cod_cliente, coligada e cod da filial.
     df_final['IDENTIFICADOR_01'] =  df_final['EMPRESA1'] + df_final['FILIAL1']
     df_final['IDENTIFICADOR_02'] =  df_final['EMPRESA2'] + df_final['FILIAL2']
@@ -209,7 +209,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 df_rateio['CRESP2'] = 'U' + df_rateio['CRESP1'].astype(str)
                 df_rateio['CRESP1'] = 'B' + df_rateio['CRESP1'].astype(str)
                 df_rateio['HISTÓRICO'] = 'H' + df_provisorio['HISTÓRICO'].iat[0]
-                df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
+                #df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
 
                 # Formatação de valores
                 soma_valor = df_rateio['VALOR'].sum()

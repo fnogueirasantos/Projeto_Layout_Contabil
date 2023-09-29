@@ -109,7 +109,7 @@ with st.expander("RATEIOS"):
 
     if uploaded_file3 is not None:
         try:
-            df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
+            df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB',dtype={'DATA':str})
             st.write('Dados Carregados com Sucesso!!')
         except Exception as e:
             st.error(f"Erro ao carregar os dados!!{e}")
@@ -125,9 +125,9 @@ with st.expander("RATEIOS"):
             try:
                 with st.spinner("Processando os dados..."):
                     time.sleep(4)
-                    df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
+                    df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB',dtype={'DATA':str})
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, data_emissao, data_vencimento)                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento))                
             except Exception as e:
                 st.error(f"Erro ao carregar os dados: {e}")
             else:   
