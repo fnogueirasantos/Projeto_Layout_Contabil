@@ -116,6 +116,7 @@ def transforma_rateio(df):
     df = df.reset_index(drop=True)
     # Remover a primeira linha (agora usada como cabeçalho)
     df = df.iloc[1:]
+    df['DATA'] = df['DATA'].astype(str)
     titulo = "TITULO"
     df.columns.values[0] = titulo
     df['TITULO'] = df['TITULO'].fillna(method="ffill")

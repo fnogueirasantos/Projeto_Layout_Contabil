@@ -109,7 +109,7 @@ with st.expander("RATEIOS"):
 
     if uploaded_file3 is not None:
         try:
-            df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB',dtype={'DATA':str})
+            df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
             st.write('Dados Carregados com Sucesso!!')
         except Exception as e:
             st.error(f"Erro ao carregar os dados!!{e}")
