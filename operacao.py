@@ -264,7 +264,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 arg0 = 'M'
                 arg1 = cod_filial
                 arg2 = '001'
-                arg3 = codigo_cliente
+                arg3 = f'{codigo_cliente}'
                 arg4 = '999903'
                 arg5 = 'A'
                 arg6 = '2.1.70'
