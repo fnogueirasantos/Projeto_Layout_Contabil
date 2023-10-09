@@ -176,7 +176,9 @@ def transforma_rateio(df):
     df_final['CNPJ1'] = df_final['IDENTIFICADOR_01'].map(dic_cnpj)
     df_final['CNPJ2'] = df_final['IDENTIFICADOR_02'].map(dic_cnpj)
     dic_cod_cliente = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['COD_CLIENTE']))
+    dic_conta_banco = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['CONTA_BANCO']))
     df_final['COD_CLIENTE'] = df_final['TITULO'].map(dic_cod_cliente)
+    df_final['CONTA_BANCO'] = df_final['TITULO'].map(dic_conta_banco)
     return df_final
 
 def cria_zip_rateio(df_final, data_emissao, data_vencimento):
@@ -204,6 +206,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 cnpj = df_provisorio['CNPJ1'].iat[0]
                 codigo_cliente = df_provisorio['COD_CLIENTE'].iat[0]
                 cod_filial = df_provisorio['COD_FILIAL1'].iat[0]
+                cod_banco = df_provisorio['COD_BANCO'].iat[0]
 
                 # Agrupamento
                 df_rateio = df_provisorio.groupby(['CRESP1', 'CRESP2']).sum().reset_index()
@@ -288,7 +291,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 arg27 = 'leandro.souza'
                 arg28 = '0,00'
                 arg29 = '01.101'
-                arg30 = '0ITAU MTZ'
+                arg30 = cod_banco
                 arg31 = '0'
                 arg32 = '651698'
                 arg33 = data_vencimento
