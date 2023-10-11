@@ -268,7 +268,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento):
                 arg4 = '999903'
                 arg5 = 'A'
                 arg6 = '2.1.70'
-                arg7 = 'AA00031/03/202331/03/2023'
+                arg7 = f'AA000{data_emissao}{data_emissao}'
                 arg8 = '0,00'
                 arg9 = '001'
                 arg10 = soma_formatada

@@ -9,6 +9,13 @@ warnings.filterwarnings("ignore")
 # Defina a variável de ambiente PYTHONUTF8 para o encoding padrão UTF-8
 os.environ["PYTHONUTF8"] = "1"
 
+# Variáveis globais da aplicação
+st.set_page_config(
+    page_title = 'Gerador de Conceito',
+    page_icon = ':chart_with_upwards_trend:',
+    layout = 'centered'
+    )
+
 st.title('Layout de Importação Conceito')
 
 # Crie um expander com um rótulo
