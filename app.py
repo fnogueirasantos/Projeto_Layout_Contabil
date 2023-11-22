@@ -61,7 +61,7 @@ with st.expander("IMPOSTOS"):
     else:
         pass
 
-st.divider()
+st.markdown("---")
 
 with st.expander("LAYOUT GERAL"):
     uploaded_file2 = st.file_uploader("Carregue o Arquivo:",key="geral")
@@ -109,7 +109,7 @@ with st.expander("LAYOUT GERAL"):
                     mime='text/csv',
                 )
 
-st.divider()
+st.markdown("---")
 
 with st.expander("RATEIOS"):
     uploaded_file3 = st.file_uploader("Carregue o Arquivo:", key="rateio")
