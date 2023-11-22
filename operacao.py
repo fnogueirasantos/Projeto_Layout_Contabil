@@ -325,7 +325,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
         
         return nome_arquivo_zip
     else:
-        df_final[df_final['RECEBER_PAGAR'] == 'Pagar']
+        df_final = df_final[df_final['RECEBER_PAGAR'] == 'Pagar']
         # Criar um arquivo ZIP
         with zipfile.ZipFile(nome_arquivo_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for emp in empresas:
