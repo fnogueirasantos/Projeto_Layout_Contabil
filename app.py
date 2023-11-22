@@ -3,18 +3,18 @@ import pandas as pd
 import time
 import operacao
 import csv
+import datetime
 import os
 import warnings
 warnings.filterwarnings("ignore")
 # Defina a variável de ambiente PYTHONUTF8 para o encoding padrão UTF-8
 os.environ["PYTHONUTF8"] = "1"
 
-# Variáveis globais da aplicação
 st.set_page_config(
-    page_title = 'Gerador de Conceito',
-    page_icon = ':chart_with_upwards_trend:',
-    layout = 'centered'
-    )
+    page_title="Gerador de Conceito",
+    page_icon=":chart_with_upwards_trend:",  # Ícone opcional
+    layout="centered"  # Layout opcional, pode ser "wide" ou "centered"
+)
 
 st.title('Layout de Importação Conceito')
 
@@ -42,7 +42,7 @@ with st.expander("IMPOSTOS"):
             try:
                 # Mostra o spinner enquanto os dados estão sendo carregados e processados
                 with st.spinner("Processando os dados..."):
-                    time.sleep(4)
+                    time.sleep(3)
                     df_filtro = pd.read_excel(uploaded_file, dtype={'Centro de Custo': str}, sheet_name=f'{opcao_sheet}')
                     zip_file_path = operacao.transforma_dados_e_cria_zip(df_filtro, cabecalho)
             except Exception as e:
@@ -61,7 +61,7 @@ with st.expander("IMPOSTOS"):
     else:
         pass
 
-st.markdown("---")
+st.divider()
 
 with st.expander("LAYOUT GERAL"):
     uploaded_file2 = st.file_uploader("Carregue o Arquivo:",key="geral")
@@ -109,7 +109,7 @@ with st.expander("LAYOUT GERAL"):
                     mime='text/csv',
                 )
 
-st.markdown("---")
+st.divider()
 
 with st.expander("RATEIOS"):
     uploaded_file3 = st.file_uploader("Carregue o Arquivo:", key="rateio")
@@ -119,7 +119,7 @@ with st.expander("RATEIOS"):
             df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
             st.write('Dados Carregados com Sucesso!!')
         except Exception as e:
-            st.error(f"Erro ao carregar os dados!!{e}")
+            st.error(f"Erro ao carregar os dados!!")
         time.sleep(1)
         select_data2 = st.date_input("Data de Emissão:")
         if select_data2:
@@ -127,14 +127,17 @@ with st.expander("RATEIOS"):
         select_data3 = st.date_input("Data de Vencimento:")
         if select_data3:
             data_vencimento = select_data3.strftime("%d/%m/%Y")
+        select_tipo = st.selectbox('Selecione o Conceito:',('Contas a Pagar', 'Contas a Receber'))
+        if select_tipo:
+            dataselect_tipo_vencimento = str(select_tipo)
 
         if st.button("Transformar Dados",key='Download2'):
             try:
                 with st.spinner("Processando os dados..."):
-                    time.sleep(4)
-                    df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB',dtype={'DATA':str})
+                    time.sleep(3)
+                    df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento))                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),select_tipo)                
             except Exception as e:
                 st.error(f"Erro ao carregar os dados: {e}")
             else:   
@@ -142,11 +145,12 @@ with st.expander("RATEIOS"):
                     with open(zip_rateio, 'rb') as f:
                         zip_data2 = f.read()
                     st.download_button(
-                        label="Baixar o arquivo ZIP",
+                        label="Baixar Arquivo ZIP",
                         data=zip_data2,
                         key="rateio_download.zip",
-                        file_name="Rateios.zip",
+                        file_name=f"Rateio_{select_tipo}.zip",
                         mime="application/zip"
                     )
     else:
         pass
+
