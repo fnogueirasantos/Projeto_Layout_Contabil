@@ -129,7 +129,7 @@ with st.expander("RATEIOS"):
             data_vencimento = select_data3.strftime("%d/%m/%Y")
         select_tipo = st.selectbox('Selecione o Conceito:',('Contas a Pagar', 'Contas a Receber'))
         if select_tipo:
-            dataselect_tipo_vencimento = str(select_tipo)
+            dataselect_tipo = str(select_tipo)
 
         if st.button("Transformar Dados",key='Download2'):
             try:
@@ -137,7 +137,7 @@ with st.expander("RATEIOS"):
                     time.sleep(3)
                     df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),select_tipo)                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),str(dataselect_tipo))                
             except Exception as e:
                 st.error(f"Erro ao carregar os dados: {e}")
             else:   
@@ -148,7 +148,7 @@ with st.expander("RATEIOS"):
                         label="Baixar Arquivo ZIP",
                         data=zip_data2,
                         key="rateio_download.zip",
-                        file_name=f"Rateio_{select_tipo}.zip",
+                        file_name=f"Rateio_{dataselect_tipo}.zip",
                         mime="application/zip"
                     )
     else:
