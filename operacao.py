@@ -193,7 +193,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
     nome_arquivo_zip = 'rateios.zip'
 
     if select_tipo == "Contas a Receber":
-        df_final = df_final[df_final['RECEBER_PAGAR'] == 'Receber']
+        df_final = df_final[df_final['RECEBER_PAGAR'].isin(['Receber'])]
         empresas = df_final['IDENTIFICADOR_01'].unique()
         # Criar um arquivo ZIP
         with zipfile.ZipFile(nome_arquivo_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -275,7 +275,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     arg0 = 'M'
                     arg1 = cod_filial
                     arg2 = f'{local_estoque:003}'
-                    arg3 = f'{codigo_cliente:010}'
+                    arg3 = str(codigo_cliente).zfill(10)
                     arg4 = '999903'
                     arg5 = 'A'
                     arg6 = '2.1.70'
@@ -415,7 +415,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     arg_cp01 = 'M'
                     arg_cp02 = cod_filial
                     arg_cp03 = f'{local_estoque:003}'
-                    arg_cp04 = f'{codigo_cliente:010}'
+                    arg_cp04 = str(codigo_cliente).zfill(10)
                     arg_cp05 = '00999903'
                     arg_cp06 = 'D'
                     arg_cp07 = '1.2.52'

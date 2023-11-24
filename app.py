@@ -110,7 +110,7 @@ with st.expander("LAYOUT GERAL"):
                 )
 
 st.markdown("---")
-
+import traceback
 with st.expander("RATEIOS"):
     uploaded_file3 = st.file_uploader("Carregue o Arquivo:", key="rateio")
 
@@ -118,7 +118,7 @@ with st.expander("RATEIOS"):
         try:
             df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
             st.write('Dados Carregados com Sucesso!!')
-        except Exception as e:
+        except Exception as e:        
             st.error(f"Erro ao carregar os dados!!")
         time.sleep(1)
         select_data2 = st.date_input("Data de Emissão:")
@@ -129,7 +129,7 @@ with st.expander("RATEIOS"):
             data_vencimento = select_data3.strftime("%d/%m/%Y")
         select_tipo = st.selectbox('Selecione o Conceito:',('Contas a Pagar', 'Contas a Receber'))
         if select_tipo:
-            dataselect_tipo_vencimento = str(select_tipo)
+            dataselect_tipo = str(select_tipo)
 
         if st.button("Transformar Dados",key='Download2'):
             try:
@@ -137,8 +137,10 @@ with st.expander("RATEIOS"):
                     time.sleep(3)
                     df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),select_tipo)                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),str(dataselect_tipo))                
             except Exception as e:
+                print(f"Erro do tipo {type(e).__name__}: {e}")
+                traceback.print_exc()
                 st.error(f"Erro ao carregar os dados: {e}")
             else:   
                 if zip_rateio is not None:
