@@ -345,6 +345,8 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                 for x in lanc_rateios:
                     # filtro no dataframe
                     df_provisorio = df_base[df_base['TITULO'] == x]
+                    colunas_para_somar = ['CRESP1', 'CRESP2']
+                    df_provisorio[colunas_para_somar] = df_provisorio[colunas_para_somar].apply(pd.to_numeric, errors='ignore')
 
                     # Parametros
                     cnpj = df_provisorio['CNPJ1'].iat[0]

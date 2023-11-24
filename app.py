@@ -137,7 +137,7 @@ with st.expander("RATEIOS"):
                     time.sleep(3)
                     df_rateio = pd.read_excel(uploaded_file3, sheet_name='NOTAS CRÉD-DÉB')
                     df_final = operacao.transforma_rateio(df_rateio)
-                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),str(dataselect_tipo))                
+                    zip_rateio = operacao.cria_zip_rateio(df_final, str(data_emissao), str(data_vencimento),dataselect_tipo)                
             except Exception as e:
                 print(f"Erro do tipo {type(e).__name__}: {e}")
                 traceback.print_exc()
