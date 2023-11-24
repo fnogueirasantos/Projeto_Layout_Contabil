@@ -127,7 +127,7 @@ def transforma_rateio(df):
     novos_nomes = ['TITULO', 'DATA', 'EMPRESA1', 'FILIAL1', 'CONTA DÉBITO', 'CRESP1',
        'EMPRESA2', 'FILIAL2', 'CONTA CRÉDITO', 'CRESP2', 'VALOR', 'HISTÓRICO']
     df1.columns = novos_nomes
-    filtro = df1['EMPRESA1'].isin(['RRPM','EDITORA'])
+    filtro = df1['EMPRESA1'].isin(['RRPM','EDITORA','P2R'])
     df1 = df1[filtro]
     df1 = df1.query("VALOR != 0")
     df1 = df1.dropna()
@@ -180,19 +180,21 @@ def transforma_rateio(df):
     dic_conta_banco = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['CONTA_BANCO']))
     dic_tipo_rateio = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['RECEBER_PAGAR']))
     dic_centro_custo = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['CENTRO_CUSTO']))
+    dic_local_estoque = dict(zip(df_codigo_cliente['TITULO'], df_codigo_cliente['LOCAL_ESTOQUE']))
     df_final['COD_CLIENTE'] = df_final['TITULO'].map(dic_cod_cliente)
     df_final['CONTA_BANCO'] = df_final['TITULO'].map(dic_conta_banco)
     df_final['RECEBER_PAGAR'] = df_final['TITULO'].map(dic_tipo_rateio)
     df_final['CENTRO_CUSTO'] = df_final['TITULO'].map(dic_centro_custo)
+    df_final['LOCAL_ESTOQUE'] = df_final['TITULO'].map(dic_local_estoque)
     return df_final
 
 def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
     # Nome do arquivo ZIP de saída
     nome_arquivo_zip = 'rateios.zip'
-    empresas = df_final['IDENTIFICADOR_01'].unique()
 
     if select_tipo == "Contas a Receber":
-        df_final[df_final['RECEBER_PAGAR'] == 'Receber']
+        df_final = df_final[df_final['RECEBER_PAGAR'] == 'Receber']
+        empresas = df_final['IDENTIFICADOR_01'].unique()
         # Criar um arquivo ZIP
         with zipfile.ZipFile(nome_arquivo_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for emp in empresas:
@@ -215,6 +217,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     cod_filial = df_provisorio['COD_FILIAL1'].iat[0]
                     cod_banco = df_provisorio['CONTA_BANCO'].iat[0]
                     centro_custo = df_provisorio['CENTRO_CUSTO'].iat[0]
+                    local_estoque = df_provisorio['LOCAL_ESTOQUE'].iat[0]
 
                     # Agrupamento
                     df_rateio = df_provisorio.groupby(['CRESP1', 'CRESP2']).sum().reset_index()
@@ -271,7 +274,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     # Configuração do Cabeçalho
                     arg0 = 'M'
                     arg1 = cod_filial
-                    arg2 = '001'
+                    arg2 = f'{local_estoque:003}'
                     arg3 = f'{codigo_cliente:010}'
                     arg4 = '999903'
                     arg5 = 'A'
@@ -326,6 +329,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
         return nome_arquivo_zip
     else:
         df_final = df_final[df_final['RECEBER_PAGAR'] == 'Pagar']
+        empresas = df_final['IDENTIFICADOR_01'].unique()
         # Criar um arquivo ZIP
         with zipfile.ZipFile(nome_arquivo_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for emp in empresas:
@@ -348,6 +352,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     cod_filial = df_provisorio['COD_FILIAL1'].iat[0]
                     cod_banco = df_provisorio['CONTA_BANCO'].iat[0]
                     centro_custo = df_provisorio['CENTRO_CUSTO'].iat[0]
+                    local_estoque = df_provisorio['LOCAL_ESTOQUE'].iat[0]
 
                     # Agrupamento
                     df_rateio = df_provisorio.groupby(['CRESP1', 'CRESP2']).sum().reset_index()
@@ -409,7 +414,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     # Configuração do Cabeçalho
                     arg_cp01 = 'M'
                     arg_cp02 = cod_filial
-                    arg_cp03 = '001'
+                    arg_cp03 = f'{local_estoque:003}'
                     arg_cp04 = f'{codigo_cliente:010}'
                     arg_cp05 = '00999903'
                     arg_cp06 = 'D'
@@ -447,7 +452,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     arg_cp38 = f'{data_emissao}'
                     arg_cp39 = cnpj
                     arg_cp40 = f'{data_emissao}'
-                    arg_cp41 = '153025'
+                    arg_cp41 = '   025'
                     arg_cp42 = f'{data_emissao}'
                     arg_cp43 = f'{data_emissao}'
                     arg_cp44 = '0'
