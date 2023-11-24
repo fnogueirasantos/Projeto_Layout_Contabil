@@ -127,6 +127,7 @@ def transforma_rateio(df):
     novos_nomes = ['TITULO', 'DATA', 'EMPRESA1', 'FILIAL1', 'CONTA DÉBITO', 'CRESP1',
        'EMPRESA2', 'FILIAL2', 'CONTA CRÉDITO', 'CRESP2', 'VALOR', 'HISTÓRICO']
     df1.columns = novos_nomes
+    df1.drop(columns=['DATA'], inplace=True)
     filtro = df1['EMPRESA1'].isin(['RRPM','EDITORA','P2R'])
     df1 = df1[filtro]
     df1 = df1.query("VALOR != 0")
@@ -141,6 +142,7 @@ def transforma_rateio(df):
     novos_nomes2 = ['DATA', 'EMPRESA1', 'FILIAL1', 'CONTA DÉBITO', 'CRESP1',
        'EMPRESA2', 'FILIAL2','CONTA CRÉDITO', 'CRESP2', 'VALOR', 'HISTÓRICO','TITULO']
     df2.columns = novos_nomes2
+    df2.drop(columns=['DATA'], inplace=True)
     filtro2 = df2['CONTA CRÉDITO'].isin(['2.1.1.11.0002'])
     df2 = df2[filtro2]
     df2 = df2.query("VALOR != 0")
@@ -224,7 +226,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     df_rateio['CRESP2'] = 'U' + df_rateio['CRESP1'].astype(str)
                     df_rateio['CRESP1'] = 'B' + df_rateio['CRESP1'].astype(str)
                     df_rateio['HISTÓRICO'] = 'H' + df_provisorio['HISTÓRICO'].iat[0]
-                    df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
+                    #df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
 
                     # Formatação de valores
                     soma_valor = df_rateio['VALOR'].sum()
@@ -345,8 +347,6 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                 for x in lanc_rateios:
                     # filtro no dataframe
                     df_provisorio = df_base[df_base['TITULO'] == x]
-                    colunas_para_somar = ['CRESP1', 'CRESP2']
-                    df_provisorio[colunas_para_somar] = df_provisorio[colunas_para_somar].apply(pd.to_numeric, errors='ignore')
 
                     # Parametros
                     cnpj = df_provisorio['CNPJ1'].iat[0]
@@ -361,7 +361,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     df_rateio['CRESP2'] = 'U' + df_rateio['CRESP1'].astype(str)
                     df_rateio['CRESP1'] = 'B' + df_rateio['CRESP1'].astype(str)
                     df_rateio['HISTÓRICO'] = 'H' + df_provisorio['HISTÓRICO'].iat[0]
-                    df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
+                    #df_rateio['DATA'] = df_provisorio['DATA'].iat[0]
 
                     # Formatação de valores
                     soma_valor = df_rateio['VALOR'].sum()
