@@ -276,7 +276,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     # Configuração do Cabeçalho
                     arg0 = 'M'
                     arg1 = cod_filial
-                    arg2 = f'{local_estoque:003}'
+                    arg2 = str(local_estoque).zfill(3)                   
                     arg3 = str(codigo_cliente).zfill(10)
                     arg4 = '999903'
                     arg5 = 'A'
@@ -416,7 +416,7 @@ def cria_zip_rateio(df_final, data_emissao, data_vencimento,select_tipo):
                     # Configuração do Cabeçalho
                     arg_cp01 = 'M'
                     arg_cp02 = cod_filial
-                    arg_cp03 = f'{local_estoque:003}'
+                    arg_cp03 = str(local_estoque).zfill(3)
                     arg_cp04 = str(codigo_cliente).zfill(10)
                     arg_cp05 = '00999903'
                     arg_cp06 = 'D'
