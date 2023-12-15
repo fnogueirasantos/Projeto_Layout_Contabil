@@ -165,7 +165,7 @@ def transforma_rateio(df):
     df_empresas = pd.read_excel('empresa.xlsx', dtype={'CODIGO CLIENTE': str,'COLIGADA':str,'CODFILIAL':str,'CNPJ':str})
     # Carrega os dados com o codigo do cliente
     #df_codigo_cliente = pd.read_excel('cod_cliente.xlsx',dtype={'CODIGO CLIENTE': str,'CONTA_BANCO':str})
-    df_codigo_cliente = pd.read_csv('cod_cliente.csv', sep=";", dtype={'COD_CLIENTE':str,'CENTRO_CUSTO':str}, encoding='UTF-8')
+    df_codigo_cliente = pd.read_csv('cod_cliente.csv', sep=";", dtype={'COD_CLIENTE':str,'CENTRO_CUSTO':str, 'LOCAL_ESTOQUE':str}, encoding='UTF-8')
     # Mapeamento para trazer cnpj, cod_cliente, coligada e cod da filial.
     df_final['IDENTIFICADOR_01'] =  df_final['EMPRESA1'] + df_final['FILIAL1']
     df_final['IDENTIFICADOR_02'] =  df_final['EMPRESA2'] + df_final['FILIAL2']
